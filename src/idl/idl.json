@@ -1,0 +1,107 @@
+{
+    "version": "0.1.0",
+    "name": "nft_marketplace",
+    "instructions": [
+        {
+            "name": "initialize",
+            "accounts": [
+                {
+                    "name": "nftOnSale",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "signer",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "nftMint",
+                    "type": "publicKey"
+                }
+            ]
+        },
+        {
+            "name": "bid",
+            "accounts": [
+                {
+                    "name": "nftOnSale",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "signer",
+                    "isMut": true,
+                    "isSigner": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "bidValue",
+                    "type": "u64"
+                }
+            ]
+        }
+    ],
+    "accounts": [
+        {
+            "name": "NftSale",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "maxBidValue",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "nftMint",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "bids",
+                        "type": {
+                            "vec": {
+                                "defined": "Bid"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "types": [
+        {
+            "name": "Bid",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "bidder",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "value",
+                        "type": "u64"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "BidLowerThanCurrentBid",
+            "msg": "Bid Lower than current maximum Bid "
+        }
+    ],
+    "metadata": {
+        "address": "EMDybNTuWUg9pQ24NE4Mu6dAEyuyUDzzLfAXn9pKqmF4"
+      }
+}
